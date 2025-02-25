@@ -2,10 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 
-button {
-  transition: background 0.3s ease-in-out;
-}
 
-button:hover {
-  background: rgba(0, 0, 0, 0.1);
-}

@@ -11,7 +11,7 @@ export default function TicTacToe() {
   const [isXNext, setIsXNext] = useState(true);
   const [history, setHistory] = useState([]);
   const winner = calculateWinner(board);
-  
+
   useEffect(() => {
     setTimeout(() => setLoading(false), 2000);
   }, []);
@@ -33,34 +33,55 @@ export default function TicTacToe() {
   }
 
   if (loading) {
-    return <div className="flex h-screen items-center justify-center text-2xl">Loading Tic-Tac-Toe...</div>;
-  }
-
-  if (!startGame) {
     return (
-      <div className="flex flex-col items-center p-6 gap-6">
-        <h1 className="text-2xl font-bold">Welcome to Tic-Tac-Toe</h1>
-        <input
-          type="text"
-          placeholder="Enter Player 1 Name"
-          value={player1}
-          onChange={(e) => setPlayer1(e.target.value)}
-          className="border p-2 rounded"
-        />
-        <input
-          type="text"
-          placeholder="Enter Player 2 Name"
-          value={player2}
-          onChange={(e) => setPlayer2(e.target.value)}
-          className="border p-2 rounded"
-        />
-        <button className="p-2 bg-blue-500 text-white rounded" onClick={() => setStartGame(true)} disabled={!player1 || !player2}>Start Game</button>
+      <div className="bg-black flex h-screen w-full items-center justify-center text-white text-4xl">
+        Loading TicTacToe...
+        <div
+          className="inline-block h-10 w-10 animate-spin rounded-full border-4 border-solid border-cyan-500 border-e-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite] ml-4"
+          role="status"
+        >
+          <span className="sr-only">Loading...</span>
+        </div>
       </div>
     );
   }
 
+  if (!startGame) {
+    return (
+        <div className="flex flex-col justify-center items-center p-10 bg-black text-white h-screen w-full">
+  <div className="border-4 border-cyan-300 rounded-lg p-8 shadow-lg w-96 flex flex-col items-center">
+    <h1 className="text-2xl font-bold text-center">Welcome to Tic-Tac-Toe</h1>
+    <input
+      type="text"
+      placeholder="Enter Player 1 Name"
+      value={player1}
+      onChange={(e) => setPlayer1(e.target.value)}
+      className="border p-2 rounded text-black mt-4 w-full"
+    />
+    <input
+      type="text"
+      placeholder="Enter Player 2 Name"
+      value={player2}
+      onChange={(e) => setPlayer2(e.target.value)}
+      className="border p-2 rounded text-black mt-4 w-full"
+    />
+    <button
+      className="relative inline-flex items-center justify-center p-0.5 mt-4 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 "
+      onClick={() => setStartGame(true)}
+      disabled={!player1 || !player2}
+    >
+      <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
+        Start Game
+      </span>
+    </button>
+  </div>
+</div>
+      
+    );
+  }
+
   return (
-    <div className="flex flex-col items-center p-6 gap-6">
+    <div className="flex flex-col items-center p-6 gap-6 bg-black text-white h-full w-full">
       {winner && <Confetti />}
       <h1 className="text-2xl font-bold">Tic-Tac-Toe</h1>
       <motion.div className="grid grid-cols-3 gap-2">
@@ -77,7 +98,14 @@ export default function TicTacToe() {
       <p className="text-lg">
         {winner ? `Congratulations ${winner === "X" ? player1 : player2}! You Won! 🎉` : `Next Player: ${isXNext ? player1 : player2}`}
       </p>
-      <button className="p-2 bg-blue-500 text-white rounded" onClick={resetGame}>Reset Game</button>
+      <button
+        className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
+        onClick={resetGame}
+      >
+        <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
+          Reset Game
+        </span>
+      </button>
       <h2 className="text-xl font-semibold mt-6">Game History</h2>
       <div className="grid grid-cols-1 gap-4 w-full max-w-md">
         {history.map((game, index) => (
